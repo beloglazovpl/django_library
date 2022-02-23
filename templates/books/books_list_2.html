@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Каталог книг{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1><a href="/books">Каталог</a></h1>
+        </div>
+        <div class="row">
+            {% for book in books %}
+                <div class="book col-md-4">
+                    <h2><a href="{% url 'book' book.pub_date %}">{{ book.name }}</a></h2>
+                    <p>{{ book.author }}</p>
+                    <p>{{ book.pub_date }}</p>
+                </div>
+            {% endfor %}
+            <ul>
+                {% if date_previous is not None %}
+                <a class="button disabled" href="{% url 'book' date_previous %}">< {{ date_previous }}  </a>
+                {% endif %}
+                {% if date_next is not None %}
+                <a class="button disabled" href="{% url 'book' date_next %}">  {{ date_next }} ></a>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
